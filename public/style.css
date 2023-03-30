@@ -1,0 +1,21 @@
+body {
+	background: gray;
+	display: flex;
+	height: 90vh;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+#container {
+	max-width: 500px;
+	background: wheat;
+	/* display: flex; */
+	border-radius: 10px;
+	flex-wrap: wrap;
+}
+
+#send {
+	border-radius: 5px;
+	background-color: aqua;
+}

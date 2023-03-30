@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>:: Bate Papo Do Felipe Cu Preto</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="shortcut icon" href="" type="image/x-icon" />
+	</head>
+	<body>
+		<div id="container">
+			<output id="output"></output>
+			<input type="text" id="message" />
+			<button id="send">Send</button>
+		</div>
+
+		<script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+		<script>
+			const socket = io();
+			var nome;
+			document.addEventListener("DOMContentLoaded", () => {
+				nome = prompt("Insira seu nome");
+				console.log(nome);
+			});
+
+			const $message = document.querySelector("#message");
+			const $output = document.querySelector("#output");
+			const $send = document.querySelector("#send");
+
+			$message.addEventListener("keyup", (key) => {
+				if (key.key == "Enter") {
+					if ($message.value != "") {
+						socket.emit("message", { nome, messsage: $message.value });
+						const newMsg = document.createElement("li");
+						newMsg.innerText = `${nome}: ${$message.value}`;
+						$message.value = "";
+						$output.appendChild(newMsg);
+					}
+				}
+			});
+
+			socket.addEventListener("response", (args) => {
+				const newMsg = document.createElement("li");
+				newMsg.innerText = args;
+				$output.appendChild(newMsg);
+			});
+
+			$send.addEventListener("click", () => {
+				if ($message.value != "") {
+					socket.emit("message", { nome, message: $message.value });
+					const newMsg = document.createElement("li");
+					newMsg.innerText = `${nome}: ${$message.value}`;
+					$message.value = "";
+					$output.appendChild(newMsg);
+				}
+			});
+		</script>
+	</body>
+</html>
