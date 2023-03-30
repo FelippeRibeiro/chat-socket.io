@@ -7,7 +7,7 @@ const Server = new socket.Server(server);
 var cors = require("cors");
 app.use(cors());
 
-app.use(express.static("C:/Users/felip/dev/Meus/chat-socket/public"));
+app.use(express.static("../public"));
 
 server.listen(3000, () => {
 	console.log("Rodando na portas 3000");
